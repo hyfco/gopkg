@@ -11,8 +11,13 @@ const (
 )
 
 func GetClientIPFromContext(ctx context.Context) string {
+
+	if ctx == nil {
+		return Default_client_ip
+	}
+
 	md, ok := metadata.FromClientContext(ctx)
-	if !ok {
+	if !ok || md == nil {
 		return Default_client_ip
 	}
 	ip := md.Get(client_ip_key)

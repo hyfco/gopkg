@@ -8,7 +8,7 @@ import (
 )
 
 func NewSQLClient(conf *conf.Bootstrap) (*sql.DB, func(), error) {
-	sqlDB, err := sql.Open("mysql", conf.GetData().GetMySql().GetDSN())
+	sqlDB, err := sql.Open("mysql", conf.GetData().GetMySQL().GetDSN())
 	if err != nil {
 		log.Fatalf("open db connection  failed.err:[%v]", err)
 	}

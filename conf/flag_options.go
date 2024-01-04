@@ -1,6 +1,8 @@
 package conf
 
-import "flag"
+import (
+	"flag"
+)
 
 type FlagOptions struct {
 	ConfigPath string
@@ -9,7 +11,9 @@ type FlagOptions struct {
 
 func NewFlagOptions() *FlagOptions {
 	ret := &FlagOptions{}
-	flag.StringVar(&ret.ConfigPath, "conf", "../configs", "config path. e.g: -conf ../config.yaml")
+	flag.StringVar(&ret.ConfigPath, "conf", "../config", "config path. e.g: --conf ./config/config_dev.yaml")
 	flag.StringVar(&ret.Env, "env", "dev", "application run env")
+	flag.Parse()
+
 	return ret
 }

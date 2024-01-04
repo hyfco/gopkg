@@ -11,7 +11,7 @@ import (
 )
 
 func NewGORM(conf *conf.Bootstrap) *gorm.DB {
-	c := conf.GetData().GetMySql()
+	c := conf.GetData().GetMySQL()
 	if c == nil {
 		panic("mysql config required")
 	}
