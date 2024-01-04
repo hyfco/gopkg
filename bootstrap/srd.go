@@ -4,7 +4,7 @@ import (
 	consul "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	consulAPI "github.com/hashicorp/consul/api"
-	conf "github.com/hyfco/gopkg/config"
+	conf "github.com/hyfco/gopkg/conf"
 )
 
 func NewRegistrar(conf *conf.Registry) registry.Registrar {

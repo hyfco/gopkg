@@ -1,16 +1,18 @@
 package bootstrap
 
 import (
-	"github.com/hyfco/gopkg/config"
+	"github.com/hyfco/gopkg/conf"
+	"github.com/redis/go-redis/v9"
 	"time"
 )
 
-func NewRedisClient(conf *config.Data) *redis.Client {
+func NewRedisClient(conf *conf.Bootstrap) *redis.Client {
+	redisConf := conf.GetData().GetRedis()
 	return redis.NewClient(&redis.Options{
-		Addr:         conf.Redis.Addr,
-		Network:      conf.Redis.Network,
+		Addr:         redisConf.GetAddr(),
+		Network:      redisConf.Network,
 		DialTimeout:  time.Duration(5 * time.Second),
-		ReadTimeout:  conf.Redis.ReadTimeout.AsDuration(),
-		WriteTimeout: conf.Redis.WriteTimeout.AsDuration(),
+		ReadTimeout:  redisConf.GetReadTimeout().AsDuration(),
+		WriteTimeout: redisConf.GetWriteTimeout().AsDuration(),
 	})
 }

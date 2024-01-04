@@ -1,7 +1,7 @@
 syntax = "proto3";
-package kratos.config;
+package hyfco.conf;
 
-option go_package = "github.com/hyfco/oasis/backend/pkg/config;config";
+option go_package = "hyfco/conf;conf";
 
 import "google/protobuf/duration.proto";
 
@@ -9,6 +9,8 @@ message Bootstrap {
   Trace trace = 1;
   Server server = 2;
   Data data = 3;
+  Logger logger = 4;
+  Registry registry = 5;
 }
 
 message Server {
@@ -27,9 +29,15 @@ message Server {
 }
 
 message Data {
-  message Database {
-    string driver = 1;
-    string source = 2;
+  message MySQL {
+    string DSN = 2;
+    google.protobuf.Duration max_life_time = 3;
+    int32 max_conns = 4;
+    int32 max_idle_conns = 5;
+    google.protobuf.Duration timeout =6;
+    google.protobuf.Duration read_timeout = 7;
+    google.protobuf.Duration write_timeout = 8;
+    bool debug = 9;
   }
   message Redis {
     string network = 1;
@@ -37,7 +45,7 @@ message Data {
     google.protobuf.Duration read_timeout = 3;
     google.protobuf.Duration write_timeout = 4;
   }
-  Database database = 1;
+  MySQL mySql= 1;
   Redis redis = 2;
 }
 
@@ -52,4 +60,13 @@ message Registry {
     string scheme = 2;
   }
   Consul consul = 1;
+}
+
+message Logger{
+  repeated string output_paths = 1;
+  string level = 2;
+  int64 max_size = 3;
+  int64 max_age = 4;
+  int64 max_backup = 5;
+  string format = 6;
 }
