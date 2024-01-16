@@ -10,7 +10,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func NewLogger(psm string, config *conf.Bootstrap) log.Logger {
+func NewLogger(psm, id, version string, config *conf.Bootstrap) log.Logger {
 	lc := config.GetLogger()
 	var ws []io.Writer
 	for _, output := range lc.OutputPaths {
@@ -34,9 +34,9 @@ func NewLogger(psm string, config *conf.Bootstrap) log.Logger {
 	return log.With(log.NewStdLogger(multiWriter),
 		"ts", log.DefaultTimestamp,
 		"caller", log.DefaultCaller,
-		//"service.id", id,
+		"service.id", id,
 		"service.name", psm,
-		//"service.version", Version,
+		"service.version", version,
 		"trace_id", tracing.TraceID(),
 		"span_id", tracing.SpanID(),
 	)
